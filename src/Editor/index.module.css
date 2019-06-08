@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  padding: 0.5em;
+}
+
+.container {
+  height: 100vh;
+  font-family: ReithSerif, Fallback, sans-serif;
+}
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+[type="file"] + label {
+  display: inline-block;
+  box-sizing: border-box;
+  background-color: #5b97ef;
+  color: white;
+  cursor: pointer;
+  font-size: 0.7em;
+  padding: 0.75em 1.5em;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  text-align: center;
+  width: 140px;
+  max-width: 140px;
+}
+
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+    background-color: #4f7bc0;
+}
+
+.titleLabel {
+  margin-left: 0.5em;
+  font-style: italic;
+  font-size: 0.7em;
+}
+
+.editableLabel {
+  font-size: 0.7em;
+}
+
+/* desktop */
+@media (min-width: 767px) {
+  .demoNav {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* phone */
+@media (max-width: 767px) {
+  body {
+    padding: 0;
+    text-align: center;
+  }
+
+  .demoNav section button {
+    display: inline-block;
+  }
+
+  .checkbox {
+    display: block;
+  }
+}
