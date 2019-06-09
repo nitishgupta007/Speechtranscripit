@@ -3,7 +3,7 @@ import TranscriptEditor  from '@bbc/react-transcript-editor';
 // import SttTypeSelect from './select-stt-json-type';
 import ExportFormatSelect from './select-export-format';
 import demoTranscript from './sample-data/KateDarling-bbcKaldiTranscriptWithSpeakerSegments.json';
-import style from './index.module.css';
+import { Link } from 'react-router-dom';
 const demoMediaUrl = 'https://download.ted.com/talks/KateDarling_2018S-950k.mp4';
 const demoTitle = 'Ted Talk - Kate Darling';
 
@@ -19,8 +19,7 @@ class Editor extends React.Component {
         sttType: 'bbckaldi',
         analyticsEvents: [],
         title: '',
-        fileName: '',
-        containerfluid: true
+        fileName: ''
         };
 
         this.transcriptEditorRef = React.createRef();
@@ -31,8 +30,7 @@ class Editor extends React.Component {
         transcriptData: demoTranscript,
         mediaUrl: demoMediaUrl,
         title: demoTitle,
-        sttType: 'bbckaldi',
-        containerfluid: !this.state.containerfluid
+        sttType: 'bbckaldi'
         });
     }
 
@@ -86,7 +84,6 @@ class Editor extends React.Component {
 
     clearLocalStorage = () => {
         localStorage.clear();
-        console.info('Cleared local storage.');
     };
 
     handleAnalyticsEvents = event => {
@@ -98,54 +95,63 @@ class Editor extends React.Component {
     };
 
     render() {
-        let containerFluid = this.state.containerfluid ? "container-fluid spacer-remove" : "container-fluid spacer-add";
         return (
-            <div className={containerFluid}>
-                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 className="h2">Editor</h1>
-                    <button className="btn btn-success" onClick={ () => this.loadDemo() }>Load Demo</button>
+            <div className="container-fluid">
+                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
+                    <h1 className="h2">
+                        <Link to="/listing">
+                            <svg viewBox="0 40 448 512" height="24">
+                                <path fill="#212529" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z">
+                                    </path>
+                            </svg>
+                        </Link><span> Editor</span>
+                    </h1>
+                    <div>
+                        <button className="btn btn-success" onClick={ () => this.loadDemo() }>Load Demo</button>
+                        <button className="btn btn-danger ml-2" onClick={ () => this.clearLocalStorage() }>Clear Local Storage</button>
+                    </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-4"><label>Export Transcript</label></div>
-                    <div className="col-md-4">
-                        <ExportFormatSelect
-                        className="form-control"
-                        name={ 'exportFormat' }
-                        value={ this.state.exportFormat }
-                        handleChange={ this.handleExportFormatChange }
-                        />
-                    </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-primary btn-sm" onClick={ () => this.exportTranscript() }>Export File</button>
-                    </div>
-                    <div className="col-md-4">
-                        <label>Options</label>
-                    </div>
-                    <div className="col-md-4">
-                        <div>
-                            <label className={ style.editableLabel } htmlFor={ 'textIsEditableCheckbox' }>Text Is Editable</label>
-                            <input
-                                id={ 'textIsEditableCheckbox' }
-                                type="checkbox"
-                                checked={ this.state.isTextEditable }
-                                onChange={ this.handleIsTextEditable }
-                            />
+                    <div className="col-md-12">
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Export Transcript:</label>
+                            <div className="col-sm-2">
+                                <ExportFormatSelect
+                                    className="form-control"
+                                    name={ 'exportFormat' }
+                                    value={ this.state.exportFormat }
+                                    handleChange={ this.handleExportFormatChange }
+                                />
+                            </div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-primary btn-sm" onClick={ () => this.exportTranscript() }>Export File</button>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-4 col-form-label">Options:</label>
+                                <div className="col-md-8">
+                                    <div className="form-group form-check">
+                                        <input className="form-check-input"
+                                            id={ 'textIsEditableCheckbox' }
+                                            type="checkbox"
+                                            checked={ this.state.isTextEditable }
+                                            onChange={ this.handleIsTextEditable }
+                                        />
+                                        <label className="form-check-label" htmlFor={ 'textIsEditableCheckbox' }>Text Is Editable</label>
+                                    </div>
+                                    <div className="form-group form-check">
+                                        <input className="form-check-input"
+                                            id={ 'spellCheckCheckbox' }
+                                            type="checkbox"
+                                            checked={ this.state.spellCheck }
+                                            onChange={ this.handleSpellCheck }
+                                        />
+                                        <label className="form-check-label" htmlFor={ 'spellCheckCheckbox' }>Spell Check</label> 
+                                    </div>
+                                </div>
+                            </div> 
                         </div>
-                        <div>
-                            <label className={ style.editableLabel } htmlFor={ 'spellCheckCheckbox' }>Spell Check</label>
-                            <input
-                                id={ 'spellCheckCheckbox' }
-                                type="checkbox"
-                                checked={ this.state.spellCheck }
-                                onChange={ this.handleSpellCheck }
-                            />
-                        </div>
                     </div>
-                    <div className="col-md-4">
-                        <button className="btn btn-danger btn-sm" onClick={ () => this.clearLocalStorage() }>Clear Local Storage</button>
-                    </div>
-                </div>
-
+                </div>    
                 <TranscriptEditor
                     transcriptData={ this.state.transcriptData }
                     fileName={ this.state.fileName }

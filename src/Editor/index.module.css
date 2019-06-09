@@ -20,10 +20,6 @@
   font-size: 0.7em;
 }
 
-.editableLabel {
-  font-size: 0.7em;
-}
-
 /* desktop */
 @media (min-width: 767px) {
   .demoNav {
