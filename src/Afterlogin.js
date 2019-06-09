@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import Editor from './Editor/index';
+import Listing from './Listing/index';
+import Header from './Header/index';
+import Sidebar from './Sidebar/index';
 
 class Afterlogin extends Component {
     render() {
         return (
-            <Editor />
+            <div>
+                <Header />
+                <div id="wrapper">
+                    <Sidebar />
+                    <div id="content-wrapper">
+                        <div className="container-fluid">
+                            <Listing />
+                        </div>
+                    </div>    
+                </div>
+            </div>  
         );
     }
 }

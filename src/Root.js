@@ -6,7 +6,8 @@ import {
   } from "react-router-dom";
 
 import App from './App';
-import Afterlogin from './Afterlogin'
+import Afterlogin from './Afterlogin';
+import Editor from './Editor/index';
 
 const Root = () => {
 	return (
@@ -14,6 +15,7 @@ const Root = () => {
       <Switch>
         <Route path="/" component={App} exact />
         <Route path="/listing" component={Afterlogin} exact />
+        <Route path="/editor" component={Editor} exact />
       </Switch>
 		</Router>
 	);

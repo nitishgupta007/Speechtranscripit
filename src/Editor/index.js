@@ -19,7 +19,8 @@ class Editor extends React.Component {
         sttType: 'bbckaldi',
         analyticsEvents: [],
         title: '',
-        fileName: ''
+        fileName: '',
+        containerfluid: true
         };
 
         this.transcriptEditorRef = React.createRef();
@@ -30,7 +31,8 @@ class Editor extends React.Component {
         transcriptData: demoTranscript,
         mediaUrl: demoMediaUrl,
         title: demoTitle,
-        sttType: 'bbckaldi'
+        sttType: 'bbckaldi',
+        containerfluid: !this.state.containerfluid
         });
     }
 
@@ -96,56 +98,52 @@ class Editor extends React.Component {
     };
 
     render() {
+        let containerFluid = this.state.containerfluid ? "container-fluid spacer-remove" : "container-fluid spacer-add";
         return (
-            <div className={ style.container }>
-                <div className={ style.demoNav }>
-                    <section className={ style.demoNavItem }>
-                        <button className="btn btn-success btn-sm" onClick={ () => this.loadDemo() }>Load Demo</button>
-                    </section>
-
-                    <section className="row">
-                        <div className="col-md-4"><label>Export Transcript</label></div>
-                        <div className="col-md-4">
-                            <ExportFormatSelect
-                            className="form-control"
-                            name={ 'exportFormat' }
-                            value={ this.state.exportFormat }
-                            handleChange={ this.handleExportFormatChange }
+            <div className={containerFluid}>
+                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 className="h2">Editor</h1>
+                    <button className="btn btn-success" onClick={ () => this.loadDemo() }>Load Demo</button>
+                </div>
+                <div className="row">
+                    <div className="col-md-4"><label>Export Transcript</label></div>
+                    <div className="col-md-4">
+                        <ExportFormatSelect
+                        className="form-control"
+                        name={ 'exportFormat' }
+                        value={ this.state.exportFormat }
+                        handleChange={ this.handleExportFormatChange }
+                        />
+                    </div>
+                    <div className="col-md-4">
+                        <button className="btn btn-primary btn-sm" onClick={ () => this.exportTranscript() }>Export File</button>
+                    </div>
+                    <div className="col-md-4">
+                        <label>Options</label>
+                    </div>
+                    <div className="col-md-4">
+                        <div>
+                            <label className={ style.editableLabel } htmlFor={ 'textIsEditableCheckbox' }>Text Is Editable</label>
+                            <input
+                                id={ 'textIsEditableCheckbox' }
+                                type="checkbox"
+                                checked={ this.state.isTextEditable }
+                                onChange={ this.handleIsTextEditable }
                             />
                         </div>
-                        <div className="col-md-4">
-                            <button className="btn btn-primary btn-sm" onClick={ () => this.exportTranscript() }>Export File</button>
+                        <div>
+                            <label className={ style.editableLabel } htmlFor={ 'spellCheckCheckbox' }>Spell Check</label>
+                            <input
+                                id={ 'spellCheckCheckbox' }
+                                type="checkbox"
+                                checked={ this.state.spellCheck }
+                                onChange={ this.handleSpellCheck }
+                            />
                         </div>
-                    </section>
-
-                    <section className="row">
-                        <div className="col-md-4">
-                            <label>Options</label>
-                        </div>
-                        <div className="col-md-4">
-                            <div>
-                                <label className={ style.editableLabel } htmlFor={ 'textIsEditableCheckbox' }>Text Is Editable</label>
-                                <input
-                                    id={ 'textIsEditableCheckbox' }
-                                    type="checkbox"
-                                    checked={ this.state.isTextEditable }
-                                    onChange={ this.handleIsTextEditable }
-                                />
-                            </div>
-                            <div>
-                                <label className={ style.editableLabel } htmlFor={ 'spellCheckCheckbox' }>Spell Check</label>
-                                <input
-                                    id={ 'spellCheckCheckbox' }
-                                    type="checkbox"
-                                    checked={ this.state.spellCheck }
-                                    onChange={ this.handleSpellCheck }
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-4">
-                            <button className="btn btn-danger btn-sm" onClick={ () => this.clearLocalStorage() }>Clear Local Storage</button>
-                        </div>
-                    </section>
+                    </div>
+                    <div className="col-md-4">
+                        <button className="btn btn-danger btn-sm" onClick={ () => this.clearLocalStorage() }>Clear Local Storage</button>
+                    </div>
                 </div>
 
                 <TranscriptEditor
@@ -165,7 +163,7 @@ class Editor extends React.Component {
                     value={ JSON.stringify(this.state.analyticsEvents, null, 2) }
                     disabled
                 />
-            </div>
+            </div>   
         );
     }
 }

@@ -5,13 +5,13 @@ class Lists extends Component {
     return (
     <div>
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5 border-bottom">
-			<h1 class="h2">Recent jobs</h1>
-			<button class="btn btn-primary">Create new job</button>
+			<h1 className="h2">Recent jobs</h1>
+			<button className="btn btn-primary">Create new job</button>
 		</div>
         <div className="create-job mb-4">
-            <div class="custom-file">
+            <div className="custom-file">
                 <input type="file" className="custom-file-input" />
-                <label className="custom-file-label" for="customFile">Choose file</label>
+                <label className="custom-file-label" htmlFor="customFile">Choose file</label>
             </div>
 		    <button type="button" className="btn btn-primary mt-4">Submit</button>
 		</div>
@@ -30,14 +30,17 @@ class Lists extends Component {
                     <td>Job 1</td>
                     <td><button type="button" className="btn btn-outline-danger">In Progress ..</button></td>
                     <td>
-                        <div className="btn-group">
-                            <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            more
-                            </button>
-                            <div classNAme="dropdown-menu">
-                                <a className="dropdown-item" href="#">Edit</a>
-                                <a className="dropdown-item" href="#">Delete</a>
-                                <a className="dropdown-item" href="#"  data-toggle="modal" data-target="#trancripted-text">Trancripted text</a>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" class="btn btn-primary">Auto-trancripted</button>
+
+                            <div className="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a className="dropdown-item" href="#">Edit</a>
+                                    <a className="dropdown-item" href="#">Delete</a>
+                                    <a className="dropdown-item" href="#"  data-toggle="modal" data-target="#trancripted-text">Trancripted Preview</a>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -47,14 +50,17 @@ class Lists extends Component {
                     <td>Job 2</td>
                     <td><button type="button" className="btn btn-outline-success">Completed</button></td>
                     <td>
-                        <div className="btn-group">
-                            <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            more
-                            </button>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item" href="#">Edit</a>
-                                <a className="dropdown-item" href="#">Delete</a>
-                                <a className="dropdown-item" href="#" data-toggle="modal" data-target="#trancripted-text">Trancripted text</a>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" class="btn btn-primary">Auto-trancripted</button>
+
+                            <div className="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a className="dropdown-item" href="#">Edit</a>
+                                    <a className="dropdown-item" href="#">Delete</a>
+                                    <a className="dropdown-item" href="#"  data-toggle="modal" data-target="#trancripted-text">Trancripted Preview</a>
+                                </div>
                             </div>
                         </div>
                     </td>
