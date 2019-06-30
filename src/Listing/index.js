@@ -114,26 +114,30 @@ class Lists extends Component {
     render() {
         let transrow = this.state.listing_data.data.files.map((data, index) => {
             return (  
-                  <tr>
-                      <th scope="row">{index + 1}</th>
-                      <td>{data.filename}</td>
-                      <td><button type="button" className="btn btn-outline-danger">In Progress ...</button></td>
-                      <td>
-                          <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-                              <button type="button" className="btn btn-primary">Auto-trancripted</button>
-                              <div className="btn-group" role="group">
-                                  <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  </button>
-                                  <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a className="dropdown-item" href="#">Edit</a>
-                                      <a className="dropdown-item" href="#">Delete</a>
-                                      {data.srtfile? (<a className="dropdown-item" href="#"  data-toggle="modal" data-target="#trancripted-text">Trancripted Preview</a>) : (<a className="dropdown-item text-muted">Trancripted Preview</a>) }
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                  </tr>)
-              });
+                    <tr>
+                        <th scope="row">{index + 1}</th>
+                        <td>{data.filename}</td>
+                        <td>{
+                            data.srtfile ? (<button type="button" className="btn btn-outline-danger">In Progress ...</button>) 
+                            : (<button type="button" className="btn btn-outline-success">Completed</button>)
+                            }
+                            </td>
+                        <td>
+                        <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" className="btn btn-primary">Auto-trancripted</button>
+                            <div className="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a className="dropdown-item" href="#">Edit</a>
+                                    <a className="dropdown-item" href="#">Delete</a>
+                                    {data.srtfile? (<a className="dropdown-item" href="#"  data-toggle="modal" data-target="#trancripted-text">Trancripted Preview</a>) : (<a className="dropdown-item text-muted">Trancripted Preview</a>) }
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>)
+            });
         return (
         <div>
             ABC:{this.state.users}
