@@ -5,76 +5,8 @@ class Lists extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: "",
+            users: [],
             createjob: false,
-            listing_data: {
-                "status": true,
-                "message": "Request successful.",
-                "data": {
-                    "files": [
-                        {
-                            "filename": "sadhguru.wav",
-                            "length": 10,
-                            "srtfile": "./Result/sadhguru.srt",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "sample_file3.wav",
-                            "length": 10,
-                            "srtfile": "",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "Ms.ShubhangiRohatgi-lec1.wav",
-                            "length": 10,
-                            "srtfile": "",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "konar_math.wav",
-                            "length": 10,
-                            "srtfile": "./Result/konar_math.srt",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "Dr.VishalTrivedi-lec1.wav",
-                            "length": 10,
-                            "srtfile": "",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "intro.wav",
-                            "length": 10,
-                            "srtfile": "./Result/intro.srt",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "Lec32.wav",
-                            "length": 10,
-                            "srtfile": "",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "konar_phys1.wav",
-                            "length": 10,
-                            "srtfile": "./Result/konar_phys1.srt",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "Dr.SachinKumar-lec1.wav",
-                            "length": 10,
-                            "srtfile": "",
-                            "edit_file": ""
-                        },
-                        {
-                            "filename": "PROF._AMIT_JAIN_INTRODUCTION_.wav",
-                            "length": 10,
-                            "srtfile": "./Result/PROF._AMIT_JAIN_INTRODUCTION_.srt",
-                            "edit_file": ""
-                        }
-                    ]
-                }
-            }
         };
     }
 
@@ -84,35 +16,32 @@ class Lists extends Component {
         });
 	};
 
-    handleUploadFile = (event) => {
-        const data = new FormData();
+    handleUploadFile = (e) => {
+        let files = e.target.files;
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
         // "file":"sadhguru.wav"
         // data.append('file', "sadhguru.wav");
-        data.append('file', event.target.files[0]);
-        data.append('name', 'some value user types');
-        axios.post('http://103.21.187.134:5010/api/transcription', data).then((response) => {
-          console.log(response); // do something with the response
-        })
+        reader.onload= (e) => {
+            console.log("loadfile", e.target.result)
+            const url = "http://103.21.187.134:5010/api/transcription";
+            const formData = { file: e.target.result };
+            return axios.post(url, formData)
+                .then(response => console.warn("result", response))
+        }
     }
 
     componentDidMount() {
-        const body = {body:JSON.stringify({"type":"upload"})}    
-        const header = { 'Content-Type': 'application/json' }
-
-        axios.get('http://103.21.187.134:5010/api/list_data', {header}, {body} )
-          .then(response => response)
-          .then(response => {
-                this.setState({
-                    users: response.json
-                })
-             }
-            )
-            .catch(function (error) {
-            console.log(error);
-        })
-    }
+        axios.get('http://103.21.187.134:5010/api/list_data?type=upload')
+        .then((response) => response.data.data)
+        .then(json => {
+            this.setState({
+                'users': json.files
+            })
+          })
+        }
     render() {
-        let transrow = this.state.listing_data.data.files.map((data, index) => {
+        let transrow = this.state.users.map((data, index) => {
             return (  
                     <tr>
                         <th scope="row">{index + 1}</th>
@@ -140,7 +69,7 @@ class Lists extends Component {
             });
         return (
         <div>
-            ABC:{this.state.users}
+            {/* <pre>{JSON.stringify(this.state.users,3,0)}</pre> */}
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5 border-bottom">
                 <h1 className="h2">Recent jobs</h1>
                 <button className="btn btn-primary" onClick={this.createnewjob}>Create new job</button>
@@ -152,7 +81,6 @@ class Lists extends Component {
                 </div>
                 <button type="button" className="btn btn-primary mt-4">Submit</button>
             </div>): ''}
-            
             <table className="table">
                 <thead className="thead-light">
                     <tr>
