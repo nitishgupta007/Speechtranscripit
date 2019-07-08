@@ -1,5 +1,5 @@
 import React from 'react';
-import TranscriptEditor  from '@bbc/react-transcript-editor';
+import TranscriptEditor  from '../packages/index';
 // import SttTypeSelect from './select-stt-json-type';
 import ExportFormatSelect from './select-export-format';
 import demoTranscript from './sample-data/KateDarling-bbcKaldiTranscriptWithSpeakerSegments.json';
@@ -10,7 +10,6 @@ const demoTitle = 'Ted Talk - Kate Darling';
 class Editor extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
         transcriptData: null,
         mediaUrl: null,

@@ -22,11 +22,11 @@ class Lists extends Component {
         reader.readAsDataURL(files[0]);
         // "file":"sadhguru.wav"
         // data.append('file', "sadhguru.wav");
-        reader.onload= (e) => {
+        reader.onload = (e) => {
             console.log("loadfile", e.target.result)
-            const url = "http://103.21.187.134:5010/api/transcription";
+            const url = "http://103.21.187.134:5010/api/data_upload";
             const formData = { file: e.target.result };
-            return axios.post(url, formData)
+            return axios.post(url, formData, {ContentType: 'application/'} )
                 .then(response => console.warn("result", response))
         }
     }
