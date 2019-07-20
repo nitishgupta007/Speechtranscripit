@@ -31,7 +31,7 @@ class TranscriptEditor extends React.Component {
       currentTime: 0,
       lastLocalSavedTime: '',
       transcriptData: null,
-      isScrollIntoViewOn: false,
+      isScrollIntoViewOn: true,
       showSettings: false,
       showShortcuts: false,
       isPauseWhileTypingOn: true,
